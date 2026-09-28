@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mo Auto Watch</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .vehicles {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .vehicle {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .vehicle h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🚗 Mo Auto Watch</h1>
+    <h2>Vehicle Monitoring System</h2>
+
+    <div class="vehicles">
+
+        {% for car in vehicles %}
+
+        <div class="vehicle">
+
+            <h3>{{ car.vehicle_id }} - {{ car.name }}</h3>
+
+            <p><strong>Location:</strong> {{ car.location }}</p>
+
+            <p>
+                <strong>Coordinates:</strong>
+                {{ car.latitude }}, {{ car.longitude }}
+            </p>
+
+            <p>
+                <strong>Speed:</strong>
+                {{ car.speed }} km/h
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ car.status }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
