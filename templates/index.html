@@ -1,75 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mo Auto Watch</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .vehicles {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .vehicle {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .vehicle h3 {
-            margin-top: 0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} | Link in Bio</title>
+    <!-- FontAwesome for Brand Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <div class="bio-container">
+        <!-- Profile Avatar -->
+        {% if profile.avatar %}
+        <div class="avatar-container">
+            <img src="{{ profile.avatar }}" alt="{{ profile.name }}" class="avatar">
+        </div>
+        {% endif %}
 
-    <h1>🚗 Mo Auto Watch</h1>
-    <h2>Vehicle Monitoring System</h2>
-
-    <div class="vehicles">
-
-        {% for car in vehicles %}
-
-        <div class="vehicle">
-
-            <h3>{{ car.vehicle_id }} - {{ car.name }}</h3>
-
-            <p><strong>Location:</strong> {{ car.location }}</p>
-
-            <p>
-                <strong>Coordinates:</strong>
-                {{ car.latitude }}, {{ car.longitude }}
-            </p>
-
-            <p>
-                <strong>Speed:</strong>
-                {{ car.speed }} km/h
-            </p>
-
-            <p>
-                <strong>Status:</strong>
-                {{ car.status }}
-            </p>
-
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h1>{{ profile.name }}</h1>
+            <p class="handle">{{ profile.handle }}</p>
+            <p class="bio-text">{{ profile.bio }}</p>
         </div>
 
-        {% endfor %}
-
+        <!-- Categorized Links Section -->
+        <div class="categories-container">
+            {% for category in profile.categories %}
+                <div class="link-category">
+                    <h2 class="category-title">{{ category.section_title }}</h2>
+                    <div class="links-list">
+                        {% for link in category.links %}
+                            <a href="{{ link.url }}" target="_blank" class="link-btn {{ link.class }}">
+                               
+                                {{ link.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
 </body>
 </html>

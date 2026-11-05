@@ -1,0 +1,23 @@
+{
+    "name": "Creator Name",
+    "handle": "@tiktok_username",
+    "bio": "Official links, highlights, and updates!",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=faces",
+    "categories": [
+        {
+            "section_title": "Connect With Me",
+            "links": [
+                { "title": "Watch on TikTok", "url": "https://tiktok.com", "class": "tiktok", "icon": "fab fa-tiktok" },
+                { "title": "Connect on Facebook", "url": "https://facebook.com/yourprofile", "class": "facebook", "icon": "fab fa-facebook-f" },
+                { "title": "Chat on WhatsApp", "url": "https://wa.me/2348000000000", "class": "whatsapp", "icon": "fab fa-whatsapp" },
+                { "title": "YouTube Channel", "url": "https://youtube.com", "class": "youtube", "icon": "fab fa-youtube" }
+            ]
+        },
+        {
+            "section_title": "Business & Inquiries",
+            "links": [
+                { "title": "Brand Sponsorships & Collabs", "url": "mailto:email@example.com", "class": "email", "icon": "fas fa-envelope" }
+            ]
+        }
+    ]
+}
