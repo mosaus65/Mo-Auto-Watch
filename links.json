@@ -7,16 +7,16 @@
         {
             "section_title": "Connect With Me",
             "links": [
-                { "title": "Watch on TikTok", "url": "https://tiktok.com", "class": "tiktok", "icon": "fab fa-tiktok" },
-                { "title": "Connect on Facebook", "url": "https://facebook.com/yourprofile", "class": "facebook", "icon": "fab fa-facebook-f" },
-                { "title": "Chat on WhatsApp", "url": "https://wa.me/2348000000000", "class": "whatsapp", "icon": "fab fa-whatsapp" },
-                { "title": "YouTube Channel", "url": "https://youtube.com", "class": "youtube", "icon": "fab fa-youtube" }
+                { "id": 1, "title": "Watch on TikTok", "url": "https://tiktok.com", "class": "tiktok", "icon": "fab fa-tiktok", "clicks": 0 },
+                { "id": 2, "title": "Connect on Facebook", "url": "https://facebook.com/yourprofile", "class": "facebook", "icon": "fab fa-facebook-f", "clicks": 0 },
+                { "id": 3, "title": "Chat on WhatsApp", "url": "https://wa.me/2348000000000", "class": "whatsapp", "icon": "fab fa-whatsapp", "clicks": 0 },
+                { "id": 4, "title": "YouTube Channel", "url": "https://youtube.com", "class": "youtube", "icon": "fab fa-youtube", "clicks": 0 }
             ]
         },
         {
             "section_title": "Business & Inquiries",
             "links": [
-                { "title": "Brand Sponsorships & Collabs", "url": "mailto:email@example.com", "class": "email", "icon": "fas fa-envelope" }
+                { "id": 5, "title": "Brand Sponsorships & Collabs", "url": "mailto:email@example.com", "class": "email", "icon": "fas fa-envelope", "clicks": 0 }
             ]
         }
     ]

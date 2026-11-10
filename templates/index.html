@@ -3,42 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} | Link in Bio</title>
-    <!-- FontAwesome for Brand Icons -->
+    <title>Admin Panel | {{ profile.name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #334155; }
+        .input-group { margin-bottom: 1rem; }
+        .input-group label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.4rem; }
+        .input-group input, .input-group select { width: 100%; padding: 0.75rem; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; box-sizing: border-box; }
+        .analytics-table { width: 100%; border-collapse: collapse; margin-top: 1rem; color: #fff; }
+        .analytics-table th, .analytics-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #334155; }
+        .analytics-table th { color: #94a3b8; font-size: 0.85rem; }
+    </style>
 </head>
 <body>
-    <div class="bio-container">
-        <!-- Profile Avatar -->
-        {% if profile.avatar %}
-        <div class="avatar-container">
-            <img src="{{ profile.avatar }}" alt="{{ profile.name }}" class="avatar">
-        </div>
-        {% endif %}
-
-        <!-- Profile Header -->
-        <div class="profile-header">
-            <h1>{{ profile.name }}</h1>
-            <p class="handle">{{ profile.handle }}</p>
-            <p class="bio-text">{{ profile.bio }}</p>
+    <div class="bio-container" style="text-align: left; max-width: 600px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Dashboard</h1>
+            <a href="{{ url_for('logout') }}" style="color: #ef4444; text-decoration: none; font-weight: bold;">Logout</a>
         </div>
 
-        <!-- Categorized Links Section -->
-        <div class="categories-container">
-            {% for category in profile.categories %}
-                <div class="link-category">
-                    <h2 class="category-title">{{ category.section_title }}</h2>
-                    <div class="links-list">
+        <!-- 1. Click Analytics Section -->
+        <div class="admin-card">
+            <h2><i class="fas fa-chart-bar"></i> Link Analytics</h2>
+            <table class="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Platform</th>
+                        <th>Total Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in profile.categories %}
                         {% for link in category.links %}
-                            <a href="{{ link.url }}" target="_blank" class="link-btn {{ link.class }}">
-                               
-                                {{ link.title }}
-                            </a>
+                        <tr>
+                            <td>{{ link.title }}</td>
+                            <td><span class="link-btn {{ link.class }}" style="padding: 0.2rem 0.5rem; font-size: 0.8rem; display: inline-block;">{{ link.class }}</span></td>
+                            <td><strong style="color: #25D366;">{{ link.clicks }}</strong></td>
+                        </tr>
                         {% endfor %}
-                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2. Profile Details Form -->
+        <div class="admin-card">
+            <h2><i class="fas fa-user-edit"></i> Edit Creator Info</h2>
+            <form method="POST">
+                <input type="hidden" name="action" value="update_profile">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="{{ profile.name }}" required>
                 </div>
-            {% endfor %}
+                <div class="input-group">
+                    <label>Handle</label>
+                    <input type="text" name="handle" value="{{ profile.handle }}" required>
+                </div>
+                <div class="input-group">
+                    <label>Bio Text</label>
+                    <input type="text" name="bio" value="{{ profile.bio }}" required>
+                </div>
+                <div class="input-group">
+                    <label>Avatar URL</label>
+                    <input type="url" name="avatar" value="{{ profile.avatar }}" required>
+                </div>
+                <button type="submit" class="link-btn" style="background: #1877F2; border: none; cursor: pointer; width: 100%;">Save Profile Info</button>
+            </form>
+        </div>
+
+        <!-- 3. Add New Link Form -->
+        <div class="admin-card">
+            <h2><i class="fas fa-plus-circle"></i> Add New Link</h2>
+            <form method="POST">
+                <input type="hidden" name="action" value="add_link">
+                <div class="input-group">
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="e.g., My New Podcast" required>
+                </div>
+                <div class="input-group">
+                    <label>URL</label>
+                    <input type="url" name="url" placeholder="https://example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Category</label>
+                    <select name="category_index">
+                        {% for cat in profile.categories %}
+                            <option value="{{ loop.index0 }}">{{ cat.section_title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Style & Icon</label>
+                    <select name="class">
+                        <option value="tiktok">TikTok</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="email">Email / Default</option>
+                    </select>
+                </div>
+                <button type="submit" class="link-btn" style="background: #25D366; color: #0f172a; border: none; cursor: pointer; width: 100%;">Add Link</button>
+            </form>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{ url_for('home') }}" style="color: #94a3b8; text-decoration: none;">&larr; View Public Landing Page</a>
         </div>
     </div>
 </body>
