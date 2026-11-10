@@ -1,4 +1,6 @@
+import os
 import json
+import shutil
 import time
 from flask import Flask, render_template, request, redirect, url_for, session
 
@@ -7,12 +9,25 @@ app.secret_key = "super_secret_key_change_me"
 
 ADMIN_PASSWORD = "admin123"
 
+# Render Persistent Disk Storage Path Configuration
+DATA_DIR = "/data" if os.path.exists("/data") else "."
+DATA_FILE = os.path.join(DATA_DIR, "links.json")
+
 def load_profile():
-    with open("links.json", "r") as file:
+    os.makedirs(DATA_DIR, exist_ok=True)
+    if not os.path.exists(DATA_FILE):
+        # Seed initial data from local root if persistent file doesn't exist yet
+        if os.path.exists("links.json"):
+            shutil.copy("links.json", DATA_FILE)
+        else:
+            return {"name": "Mo-Auto-Watch", "categories": []}
+            
+    with open(DATA_FILE, "r") as file:
         return json.load(file)
 
 def save_profile(data):
-    with open("links.json", "w") as file:
+    os.makedirs(DATA_DIR, exist_ok=True)
+    with open(DATA_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
 @app.route("/")
